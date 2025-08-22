@@ -1,0 +1,45 @@
+
+
+
+2025-08-22 10:29:32
+================ Hyperparameters ===============
+anormly_ratio: 1.0
+batch_size: 32
+d_model: 256
+data_path: PSM
+dataset: PSM
+devices: 0,1,2,3
+e_layers: 3
+gpu: 0
+index: 137
+input_c: 25
+k: 3
+loss_fuc: MSE
+lr: 0.0001
+mode: train
+model_save_path: checkpoints
+n_heads: 1
+num_epochs: 3
+output_c: 25
+patch_size: [9]
+rec_timeseries: True
+use_gpu: False
+use_multi_gpu: True
+win_size: 18
+====================  Train  ===================
+Epoch: 1, Cost time: 32.271s 
+Epoch: 2, Cost time: 31.762s 
+Epoch: 3, Cost time: 31.664s 
+Threshold : 0.5079827857017517
+pa_accuracy           : 0.9757
+pa_precision          : 0.9565
+pa_recall             : 0.9670
+pa_f_score            : 0.9617
+MCC_score             : 0.9440
+Affiliation precision : 0.3551
+Affiliation recall    : 0.4467
+R_AUC_ROC             : 0.8863
+R_AUC_PR              : 0.9419
+VUS_ROC               : 0.8402
+VUS_PR                : 0.9057
+Accuracy : 0.9757, Precision : 0.9565, Recall : 0.9670, F-score : 0.9617 

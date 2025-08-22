@@ -54,7 +54,9 @@ class EarlyStopping:
             self.counter = 0
 
     def save_checkpoint(self, val_loss, val_loss2, model, path):
-        torch.save(model.state_dict(), os.path.join(path, str(self.dataset) + '_checkpoint.pth'))
+        # torch.save(model.state_dict(), os.path.join(path, str(self.dataset) + '_checkpoint.pth'))
+        checkpoint_filename = str(self.dataset) + '_checkpoint.pth'
+        torch.save(model.state_dict(), os.path.join(path, checkpoint_filename))
         self.val_loss_min = val_loss
         self.val_loss2_min = val_loss2
 
