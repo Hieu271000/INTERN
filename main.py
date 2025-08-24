@@ -112,37 +112,16 @@ if __name__ == '__main__':
         config.device_ids = [int(id_) for id_ in device_ids]
         config.gpu = config.device_ids[0]
     
-    
-    # sys.stdout = Logger("result/"+ config.data_path +".log", sys.stdout)
-    # if config.mode == 'train':
-    #     print("\n\n")
-    #     print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
-    #     print('================ Hyperparameters ===============')
-    #     for k, v in sorted(args.items()):
-    #         print('%s: %s' % (str(k), str(v)))
-    #     print('====================  Train  ===================')
-        
-    # main(config)
+
 
     
-    # === BẮT ĐẦU ĐOẠN MÃ SỬA LỖI TẠO LOG ===
-    # Làm sạch đường dẫn dữ liệu đầu vào để nó trở thành một tên thư mục hợp lệ
-    # Ví dụ: './dataset/MyViewData/' -> 'dataset\MyViewData' trên Windows
+    # === BẮT ĐẦU ĐOẠN TẠO LOG ===
     clean_data_path = config.data_path.strip('./\\').replace('/', os.sep).replace('\\', os.sep)
-    
-    # Tạo đường dẫn thư mục log
-    log_dir = os.path.join("result", clean_data_path)
-    
-    # Tự động tạo thư mục log nếu nó chưa tồn tại
+    log_dir = os.path.join("result", clean_data_path) 
     os.makedirs(log_dir, exist_ok=True)
-    
-    # Tạo đường dẫn đầy đủ cho tệp log bên trong thư mục đó
     log_file_path = os.path.join(log_dir, "run.log")
-
-    # Bây giờ mới bắt đầu ghi log
     sys.stdout = Logger(log_file_path, sys.stdout)
-    # === KẾT THÚC ĐOẠN MÃ SỬA LỖI TẠO LOG ===
-    # sys.stdout = Logger("result/"+ config.data_path +".log", sys.stdout)
+
     if config.mode == 'train':
         print("\n\n")
         print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))

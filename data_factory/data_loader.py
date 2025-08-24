@@ -499,40 +499,95 @@ class SWATSegLoader(Dataset):
                               index // self.step * self.win_size:index // self.step * self.win_size + self.win_size]), np.float32(
                 self.test_labels[index // self.step * self.win_size:index // self.step * self.win_size + self.win_size])
 
-class AWINGSegLoader(object):
+class MyDataSegLoader(object):
     def __init__(self, data_path, win_size, step, mode="train"):
         self.mode = mode
         self.step = step
         self.win_size = win_size
         self.scaler = StandardScaler()
 
+        # train_df = pd.read_csv(data_path + '/train.csv')
+        # data = train_df.values
+        # data = np.nan_to_num(data)
+        
+        # self.scaler.fit(data)
+        # self.train = self.scaler.transform(data)
+        
+        # test_df = pd.read_csv(data_path + '/test.csv')
+        # test_data = test_df.values
+        # test_data = np.nan_to_num(test_data)
+        # self.test = self.scaler.transform(test_data)
+        
+        # label_df = pd.read_csv(data_path + '/test_label.csv')
+        # self.test_labels = label_df.values
+        
+        # self.val = self.test
+
+        # print(f"[MyDataSegLoader - {self.mode} mode] Đã tải xong. Train shape: {self.train.shape}, Test shape: {self.test.shape}")
+
+
+        def read_value_column(file_path):
+            try:
+                df = pd.read_csv(file_path, usecols=[1]) 
+            except ValueError:
+                print(f"Header ,try file {file_path}...")
+                df = pd.read_csv(file_path, skiprows=1, usecols=[1], header=None)
+            return df.values
+
+        # Đọc dữ liệu train và test chỉ với cột giá trị
+        data = read_value_column(data_path + '/train.csv')
+        data = np.nan_to_num(data)
+        
+        test_data = read_value_column(data_path + '/test.csv')
+        test_data = np.nan_to_num(test_data)
+        
+        self.test_labels = read_value_column(data_path + '/test_label.csv')
+        self.test_labels = np.nan_to_num(self.test_labels)
+
+        # Fit scaler CHỈ trên dữ liệu train (bây giờ chỉ chứa số)
+        self.scaler.fit(data)
+        self.train = self.scaler.transform(data)
+        self.test = self.scaler.transform(test_data)
+        self.val = self.test
+
+        print(f"[MyDataSegLoader - {self.mode} mode] xong. Train shape: {self.train.shape}, Test shape: {self.test.shape}")
+
+
     def __len__(self):
-        """
-        Number of images in the object dataset.
-        """
         if self.mode == "train":
             return (self.train.shape[0] - self.win_size) // self.step + 1
         elif (self.mode == 'val'):
             return (self.val.shape[0] - self.win_size) // self.step + 1
         elif (self.mode == 'test'):
             return (self.test.shape[0] - self.win_size) // self.step + 1
-        else:
+        else: # Dành cho mode='thre'
             return (self.test.shape[0] - self.win_size) // self.win_size + 1
 
     def __getitem__(self, index):
-        index = index * self.step
         if self.mode == "train":
-            return np.float32(self.train[index:index + self.win_size]), np.float32(self.test_labels[0:self.win_size])
-        elif (self.mode == 'val'):
-            return np.float32(self.val[index:index + self.win_size]), np.float32(self.test_labels[0:self.win_size])
-        elif (self.mode == 'test'):
-            return np.float32(self.test[index:index + self.win_size]), np.float32(
-                self.test_labels[index:index + self.win_size])
-        else:
-            return np.float32(self.test[
-                              index // self.step * self.win_size:index // self.step * self.win_size + self.win_size]), np.float32(
-                self.test_labels[index // self.step * self.win_size:index // self.step * self.win_size + self.win_size])
+            start_index = index * self.step
+            end_index = start_index + self.win_size
+            return np.float32(self.train[start_index:end_index]), np.float32(self.test_labels[0:self.win_size])
         
+        elif (self.mode == 'val'):
+            start_index = index * self.step
+            end_index = start_index + self.win_size
+            return np.float32(self.val[start_index:end_index]), np.float32(self.test_labels[0:self.win_size])
+            
+        elif (self.mode == 'test'):
+            start_index = index * self.step
+            end_index = start_index + self.win_size
+            return np.float32(self.test[start_index:end_index]), np.float32(
+                self.test_labels[start_index:end_index])
+        
+        else: 
+            start_index = index * self.win_size
+            end_index = start_index + self.win_size
+            return np.float32(self.test[start_index:end_index]), np.float32(
+                self.test_labels[start_index:end_index])
+        
+
+
 def get_loader_segment(index, data_path, batch_size, win_size=100, step=100, mode='train', dataset='KDD'):
     if (dataset == 'SMD'):
         dataset = SMDSegLoader(data_path, win_size, 1, mode)
@@ -556,8 +611,8 @@ def get_loader_segment(index, data_path, batch_size, win_size=100, step=100, mod
         dataset = NIPS_TS_CCardSegLoader(data_path, win_size, 1, mode)
     elif (dataset == 'SMD_Ori'):
         dataset = SMD_OriSegLoader(index, data_path, win_size, 1, mode)
-    elif (dataset == 'AWING'): 
-        dataset = AWINGSegLoader(data_path, win_size, 1, mode)
+    elif (dataset == 'MyData'): 
+        dataset = MyDataSegLoader(data_path, win_size, 1, mode)
 
     shuffle = False
     if mode == 'train':

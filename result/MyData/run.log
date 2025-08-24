@@ -1,0 +1,78 @@
+
+
+
+2025-08-22 16:56:34
+================ Hyperparameters ===============
+anormly_ratio: 4.0
+batch_size: 32
+d_model: 256
+data_path: MyData
+dataset: MyData
+devices: 0,1,2,3
+e_layers: 3
+gpu: 0
+index: 137
+input_c: 1
+k: 3
+loss_fuc: MSE
+lr: 0.0001
+mode: train
+model_save_path: checkpoints
+n_heads: 1
+num_epochs: 25
+output_c: 1
+patch_size: [7]
+rec_timeseries: True
+use_gpu: False
+use_multi_gpu: True
+win_size: 28
+====================  Train  ===================
+[MyDataSegLoader - train mode] xong. Train shape: (485, 1), Test shape: (377, 1)
+[MyDataSegLoader - val mode] xong. Train shape: (485, 1), Test shape: (377, 1)
+[MyDataSegLoader - test mode] xong. Train shape: (485, 1), Test shape: (377, 1)
+[MyDataSegLoader - thre mode] xong. Train shape: (485, 1), Test shape: (377, 1)
+Epoch: 1, Cost time: 1.455s 
+Epoch: 2, Cost time: 1.948s 
+Epoch: 3, Cost time: 1.762s 
+Epoch: 4, Cost time: 1.627s 
+Epoch: 5, Cost time: 1.598s 
+Epoch: 6, Cost time: 1.717s 
+Epoch: 7, Cost time: 1.652s 
+Epoch: 8, Cost time: 1.468s 
+Epoch: 9, Cost time: 1.805s 
+Epoch: 10, Cost time: 1.795s 
+Epoch: 11, Cost time: 1.587s 
+Epoch: 12, Cost time: 1.599s 
+Epoch: 13, Cost time: 1.645s 
+Epoch: 14, Cost time: 1.821s 
+Epoch: 15, Cost time: 1.780s 
+Epoch: 16, Cost time: 1.813s 
+Epoch: 17, Cost time: 1.868s 
+Epoch: 18, Cost time: 1.925s 
+Epoch: 19, Cost time: 1.850s 
+Epoch: 20, Cost time: 1.715s 
+Epoch: 21, Cost time: 1.798s 
+Epoch: 22, Cost time: 1.708s 
+Epoch: 23, Cost time: 1.954s 
+Epoch: 24, Cost time: 2.037s 
+Epoch: 25, Cost time: 1.708s 
+[MyDataSegLoader - train mode] xong. Train shape: (485, 1), Test shape: (377, 1)
+[MyDataSegLoader - val mode] xong. Train shape: (485, 1), Test shape: (377, 1)
+[MyDataSegLoader - test mode] xong. Train shape: (485, 1), Test shape: (377, 1)
+[MyDataSegLoader - thre mode] xong. Train shape: (485, 1), Test shape: (377, 1)
+Threshold : 0.456968446969985
+
+Saving predict...
+Saved: result\MyData
+pa_accuracy           : 0.9560
+pa_precision          : 0.4118
+pa_recall             : 0.5385
+pa_f_score            : 0.4667
+MCC_score             : 0.4485
+Affiliation precision : 0.5370
+Affiliation recall    : 0.7516
+R_AUC_ROC             : 0.7613
+R_AUC_PR              : 0.7430
+VUS_ROC               : 0.7511
+VUS_PR                : 0.6978
+Accuracy : 0.9560, Precision : 0.4118, Recall : 0.5385, F-score : 0.4667 

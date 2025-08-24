@@ -302,6 +302,24 @@ class Solver(object):
         pred = (test_energy > thresh).astype(int)
         gt = test_labels.astype(int)
         
+        # --- BẮT ĐẦU THÊM ĐOẠN CODE LƯU FILE ---
+        print("\nSaving predict...")
+        
+        # Tạo thư mục result nếu chưa có
+        output_folder = os.path.join('result', self.data_path)
+
+        # Lưu các mảng kết quả
+        np.save(os.path.join(output_folder, 'predictions.npy'), pred)
+        np.save(os.path.join(output_folder, 'ground_truth.npy'), gt)
+        np.save(os.path.join(output_folder, 'anomaly_scores.npy'), test_energy)
+        
+        # Lưu lại ngưỡng (threshold)
+        with open(os.path.join(output_folder, 'threshold.txt'), 'w') as f:
+            f.write(str(thresh))
+            
+        print(f"Saved: {output_folder}")
+        # --- KẾT THÚC THÊM ĐOẠN CODE LƯU FILE ---
+
         matrix = [self.index]
         scores_simple = combine_all_evaluation_scores(pred, gt, test_energy)
         for key, value in scores_simple.items():

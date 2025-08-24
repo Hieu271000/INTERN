@@ -43,3 +43,29 @@ R_AUC_PR              : 0.9419
 VUS_ROC               : 0.8402
 VUS_PR                : 0.9057
 Accuracy : 0.9757, Precision : 0.9565, Recall : 0.9670, F-score : 0.9617 
+Threshold : 0.5079827857017517
+pa_accuracy           : 0.9757
+pa_precision          : 0.9565
+pa_recall             : 0.9670
+pa_f_score            : 0.9617
+MCC_score             : 0.9440
+Affiliation precision : 0.3551
+Affiliation recall    : 0.4467
+R_AUC_ROC             : 0.8863
+R_AUC_PR              : 0.9419
+VUS_ROC               : 0.8402
+VUS_PR                : 0.9057
+Accuracy : 0.9757, Precision : 0.9565, Recall : 0.9670, F-score : 0.9617 
+Threshold : 0.5079827857017517
+pa_accuracy           : 0.9757
+pa_precision          : 0.9565
+pa_recall             : 0.9670
+pa_f_score            : 0.9617
+MCC_score             : 0.9440
+Affiliation precision : 0.3551
+Affiliation recall    : 0.4467
+R_AUC_ROC             : 0.8863
+R_AUC_PR              : 0.9419
+VUS_ROC               : 0.8402
+VUS_PR                : 0.9057
+Accuracy : 0.9757, Precision : 0.9565, Recall : 0.9670, F-score : 0.9617 
